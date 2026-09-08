@@ -1,0 +1,14 @@
+# SolidWorks export debug log (local, ~1.1 MB)
+export.log
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+
+# Build artifacts
+build/
+devel/
+install/
+log/
+*.pyc

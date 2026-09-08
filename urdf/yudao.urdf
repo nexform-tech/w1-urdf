@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    原始 URDF 由 SolidWorks to URDF Exporter 生成，已做以下修改：
+    1. 新增一个基座 link "base_link"（作为世界坐标系下的固定基座）。
+    2. 将原根 link "XC_link" 通过一个固定关节 "rot_fixed_joint" 连接到 "base_link"，
+       并在该关节上施加绕 X 轴旋转 90°（1.57079632679 rad）的变换，
+       使整个机器人从原来的 Y 轴向上变为 Z 轴向上。
+    这样所有平移轴（prismatic）将沿 Z 方向运动，视觉模型也得到相应旋转。
+-->
+<robot name="yudao_urdf_z_up">
+
+  <!-- 新增的固定基座，用于整体旋转变换 -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.000001" />
+      <inertia ixx="1e-9" ixy="0" ixz="0" iyy="1e-9" iyz="0" izz="1e-9" />
+    </inertial>
+  </link>
+
+  <!-- 固定关节，使整个机器人绕 X 轴旋转 +90°，将 Y 轴映射到 Z 轴 -->
+  <joint name="rot_fixed_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="1.57079632679 0 0" />
+    <parent link="base_link" />
+    <child link="XC_link" />
+  </joint>
+
+  <!-- 以下为原始内容，未做任何数值修改，仅嵌套在 "base_link" 之下 -->
+  <link name="XC_link">
+    <inertial>
+      <origin xyz="5.5072E-05 0.022569 -0.054916" rpy="0 0 0" />
+      <mass value="14.384" />
+      <inertia ixx="0.22497" ixy="-3.0958E-05" ixz="-8.9479E-06" iyy="0.21297" iyz="-0.018856" izz="0.17973" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/XC_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/XC_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="LZ2_Joint" type="prismatic">
+    <origin xyz="-0.00021 0.024678 0" rpy="0 0 0" />
+    <parent link="XC_link" />
+    <child link="LZ2_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.3141592653589793" effort="0" velocity="0" />
+  </joint>
+
+  <link name="LZ2_Link">
+    <inertial>
+      <origin xyz="6.7269E-11 0.17522 0.0032343" rpy="0 0 0" />
+      <mass value="0.94345" />
+      <inertia ixx="0.012938" ixy="2.9753E-12" ixz="2.5748E-12" iyy="0.0066662" iyz="1.5913E-05" izz="0.013165" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/LZ2_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/LZ2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="LZ3_Joint" type="prismatic">
+    <origin xyz="0 0.0088157 0" rpy="0 0 0" />
+    <parent link="LZ2_Link" />
+    <child link="LZ3_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.3141592653589793" effort="0" velocity="0" />
+  </joint>
+
+  <link name="LZ3_Link">
+    <inertial>
+      <origin xyz="1.8148E-10 0.17525 0.0033761" rpy="0 0 0" />
+      <mass value="0.86361" />
+      <inertia ixx="0.011368" ixy="6.757E-12" ixz="4.049E-12" iyy="0.0050311" iyz="1.5299E-05" izz="0.011565" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/LZ3_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/LZ3_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="LZ4_Joint" type="prismatic">
+    <origin xyz="0 0.0036467 0" rpy="0 0 0" />
+    <parent link="LZ3_Link" />
+    <child link="LZ4_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="0.3141592653589793" effort="0" velocity="0" />
+  </joint>
+
+  <link name="LZ4_Link">
+    <inertial>
+      <origin xyz="1.0747E-05 0.18917 0.0030708" rpy="0 0 0" />
+      <mass value="0.85186" />
+      <inertia ixx="0.011792" ixy="-1.4664E-06" ixz="-1.2479E-07" iyy="0.00382" iyz="7.584E-05" izz="0.011952" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/LZ4_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/LZ4_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="YBZC_Joint" type="revolute">
+    <origin xyz="0.0025582 0.351 0.0007916" rpy="0 0 0" />
+    <parent link="LZ4_Link" />
+    <child link="YBZC_Link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-2.792526803190927" upper="3.141592653589793" effort="100" velocity="1" />
+  </joint>
+
+  <link name="YBZC_Link">
+    <inertial>
+      <origin xyz="0.0058559 0.14288 -0.016569" rpy="0 0 0" />
+      <mass value="1.431" />
+      <inertia ixx="0.0068402" ixy="-6.4722E-05" ixz="1.006E-06" iyy="0.0048989" iyz="-7.9366E-05" izz="0.0072204" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/YBZC_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/YBZC_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="j2_Joint" type="revolute">
+    <origin xyz="0.111 0.1595 0" rpy="0 0 0" />
+    <parent link="YBZC_Link" />
+    <child link="j2_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.792526803190927" upper="2.792526803190927" effort="100" velocity="1" />
+  </joint>
+
+  <link name="j2_Link">
+    <inertial>
+      <origin xyz="0.046131 0.00032668 -0.0032061" rpy="0 0 0" />
+      <mass value="0.92796" />
+      <inertia ixx="0.00088753" ixy="5.0891E-06" ixz="2.5271E-05" iyy="0.0010211" iyz="-2.8242E-06" izz="0.00098034" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j2_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="J3_Joint" type="revolute">
+    <origin xyz="0.056 0 0" rpy="0 0 0" />
+    <parent link="j2_Link" />
+    <child link="J3_Link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.9198621771937625" upper="1.9198621771937625" effort="100" velocity="1" />
+  </joint>
+
+  <link name="J3_Link">
+    <inertial>
+      <origin xyz="0.071865 1.6839E-06 -0.00063312" rpy="0 0 0" />
+      <mass value="0.50977" />
+      <inertia ixx="0.00018001" ixy="2.0628E-08" ixz="1.2826E-06" iyy="0.00036994" iyz="-2.9567E-08" izz="0.00039038" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J3_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J3_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="J4_Joint" type="revolute">
+    <origin xyz="0.1195 0 0" rpy="0 0 0" />
+    <parent link="J3_Link" />
+    <child link="J4_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.792526803190927" upper="2.792526803190927" effort="100" velocity="1" />
+  </joint>
+
+  <link name="J4_Link">
+    <inertial>
+      <origin xyz="0.14016 0.0010993 0.022361" rpy="0 0 0" />
+      <mass value="0.60411" />
+      <inertia ixx="0.0004203" ixy="-2.617E-05" ixz="-0.00053763" iyy="0.0024973" iyz="-9.2402E-06" izz="0.0023131" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J4_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J4_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="J5_Joint" type="revolute">
+    <origin xyz="0.18 -7E-05 0.038" rpy="0 0 0" />
+    <parent link="J4_Link" />
+    <child link="J5_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-3.141592653589793" upper="0.7853981633974483" effort="100" velocity="1" />
+  </joint>
+
+  <link name="J5_Link">
+    <inertial>
+      <origin xyz="0.052507 0.00018927 -0.033929" rpy="0 0 0" />
+      <mass value="0.34687" />
+      <inertia ixx="0.00027475" ixy="3.7203E-06" ixz="7.3052E-05" iyy="0.00034503" iyz="-2.618E-06" izz="0.00040646" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J5_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J5_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="J6_Joint" type="revolute">
+    <origin xyz="0.09145 0 -0.038" rpy="0 0 0" />
+    <parent link="J5_Link" />
+    <child link="J6_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.792526803190927" upper="2.792526803190927" effort="100" velocity="1" />
+  </joint>
+
+  <link name="J6_Link">
+    <inertial>
+      <origin xyz="0.065022 -0.00016716 3.0069E-06" rpy="0 0 0" />
+      <mass value="0.088738" />
+      <inertia ixx="3.2287E-05" ixy="8.7819E-07" ixz="9.8315E-08" iyy="0.00015959" iyz="-1.7849E-08" izz="0.00017485" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J6_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J6_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="J7_Joint" type="revolute">
+    <origin xyz="0.131 0 0" rpy="0 0 0" />
+    <parent link="J6_Link" />
+    <child link="J7_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.5707963267948966" upper="1.5707963267948966" effort="100" velocity="1" />
+  </joint>
+
+  <link name="J7_Link">
+    <inertial>
+      <origin xyz="0.031037 -0.0012161 -0.0011059" rpy="0 0 0" />
+      <mass value="0.31252" />
+      <inertia ixx="0.00015227" ixy="-9.2317E-06" ixz="8.9106E-06" iyy="0.00041042" iyz="1.2128E-07" izz="0.00041018" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J7_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J7_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="J8_Joint" type="revolute">
+    <origin xyz="0.062 0 -0.00031" rpy="0 0 0" />
+    <parent link="J7_Link" />
+    <child link="J8_Link" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-1.5707963267948966" upper="1.5707963267948966" effort="100" velocity="1" />
+  </joint>
+
+  <link name="J8_Link">
+    <inertial>
+      <origin xyz="0.028424 -7.4289E-05 -0.0011344" rpy="0 0 0" />
+      <mass value="0.066514" />
+      <inertia ixx="5.3128E-05" ixy="1.1277E-07" ixz="-7.1494E-08" iyy="8.5643E-05" iyz="2.9584E-09" izz="6.657E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J8_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/J8_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="ee_Ljq_Joint" type="fixed">
+    <origin xyz="0.081019 0 -0.00085131" rpy="0 0 0" />
+    <parent link="J8_Link" />
+    <child link="Ljq_Link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="Ljq_Link">
+    <inertial>
+      <origin xyz="-0.010398 1.0574E-09 0.00037414" rpy="0 0 0" />
+      <mass value="0.012359" />
+      <inertia ixx="3.4764E-06" ixy="-7.3424E-14" ixz="2.0732E-08" iyy="2.1231E-06" iyz="1.4724E-13" izz="2.0554E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/Ljq_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/Ljq_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="j2y_Joint" type="revolute">
+    <origin xyz="-0.111 0.1595 0" rpy="3.1416 0 3.1416" />
+    <parent link="YBZC_Link" />
+    <child link="j2y_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.792526803190927" upper="2.792526803190927" effort="100" velocity="1" />
+  </joint>
+
+  <link name="j2y_Link">
+    <inertial>
+      <origin xyz="0.046131 -0.00032668 0.0032061" rpy="0 0 0" />
+      <mass value="0.92796" />
+      <inertia ixx="0.00088753" ixy="-5.0891E-06" ixz="-2.5271E-05" iyy="0.0010211" iyz="-2.8242E-06" izz="0.00098034" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j2y_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j2y_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="j3y_Joint" type="revolute">
+    <origin xyz="0.056 0 0" rpy="0 0 0" />
+    <parent link="j2y_Link" />
+    <child link="j3y_Link" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-1.9198621771937625" upper="1.9198621771937625" effort="100" velocity="1" />
+  </joint>
+
+  <link name="j3y_Link">
+    <inertial>
+      <origin xyz="0.071865 -1.6839E-06 0.00063312" rpy="0 0 0" />
+      <mass value="0.50977" />
+      <inertia ixx="0.00018001" ixy="-2.0628E-08" ixz="-1.2826E-06" iyy="0.00036994" iyz="-2.9567E-08" izz="0.00039038" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j3y_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j3y_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="j4y_Joint" type="revolute">
+    <origin xyz="0.1195 0 0" rpy="0 0 0" />
+    <parent link="j3y_Link" />
+    <child link="j4y_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.792526803190927" upper="2.792526803190927" effort="100" velocity="1" />
+  </joint>
+
+  <link name="j4y_Link">
+    <inertial>
+      <origin xyz="0.14016 -0.0010993 -0.022361" rpy="0 0 0" />
+      <mass value="0.60411" />
+      <inertia ixx="0.0004203" ixy="2.617E-05" ixz="0.00053763" iyy="0.0024973" iyz="-9.2402E-06" izz="0.0023131" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j4y_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j4y_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="j5y_Joint" type="revolute">
+    <origin xyz="0.18 7E-05 -0.038" rpy="0 0 0" />
+    <parent link="j4y_Link" />
+    <child link="j5y_Link" />
+    <axis xyz="0 -1 0" />
+    <limit lower="-3.141592653589793" upper="0.7853981633974483" effort="100" velocity="1" />
+  </joint>
+
+  <link name="j5y_Link">
+    <inertial>
+      <origin xyz="0.052507 -0.00018927 0.033929" rpy="0 0 0" />
+      <mass value="0.34687" />
+      <inertia ixx="0.00027475" ixy="-3.7203E-06" ixz="-7.3052E-05" iyy="0.00034503" iyz="-2.618E-06" izz="0.00040646" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j5y_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j5y_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="j6y_Joint" type="revolute">
+    <origin xyz="0.09145 0 0.038" rpy="0 0 0" />
+    <parent link="j5y_Link" />
+    <child link="j6y_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-2.792526803190927" upper="2.792526803190927" effort="100" velocity="1" />
+  </joint>
+
+  <link name="j6y_Link">
+    <inertial>
+      <origin xyz="0.065022 -0.00016716 3.0069E-06" rpy="0 0 0" />
+      <mass value="0.088738" />
+      <inertia ixx="3.2287E-05" ixy="8.7819E-07" ixz="9.8315E-08" iyy="0.00015959" iyz="-1.7849E-08" izz="0.00017485" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j6y_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j6y_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="j7y_Joint" type="revolute">
+    <origin xyz="0.131 0 0" rpy="0 0 0" />
+    <parent link="j6y_Link" />
+    <child link="j7y_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.5707963267948966" upper="1.5707963267948966" effort="100" velocity="1" />
+  </joint>
+
+  <link name="j7y_Link">
+    <inertial>
+      <origin xyz="0.031037 -0.0012161 -0.0011059" rpy="0 0 0" />
+      <mass value="0.31252" />
+      <inertia ixx="0.00015227" ixy="-9.2317E-06" ixz="8.9106E-06" iyy="0.00041042" iyz="1.2128E-07" izz="0.00041018" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j7y_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j7y_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="j8y_Joint" type="revolute">
+    <origin xyz="0.062 0 -0.00031" rpy="0 0 0" />
+    <parent link="j7y_Link" />
+    <child link="j8y_Link" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-1.5707963267948966" upper="1.5707963267948966" effort="100" velocity="1" />
+  </joint>
+
+  <link name="j8y_Link">
+    <inertial>
+      <origin xyz="0.028424 -7.4306E-05 -0.0011344" rpy="0 0 0" />
+      <mass value="0.066514" />
+      <inertia ixx="5.3128E-05" ixy="1.1277E-07" ixz="-7.1494E-08" iyy="8.5643E-05" iyz="2.9584E-09" izz="6.657E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j8y_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/j8y_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="ee_LJQy_Joint" type="fixed">
+    <origin xyz="0.081019 0 -0.00085131" rpy="0 0 0" />
+    <parent link="j8y_Link" />
+    <child link="LJQy_Link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="LJQy_Link">
+    <inertial>
+      <origin xyz="-0.010398 1.0574E-09 0.00037414" rpy="0 0 0" />
+      <mass value="0.012359" />
+      <inertia ixx="3.4764E-06" ixy="-7.3424E-14" ixz="2.0732E-08" iyy="2.1231E-06" iyz="1.4724E-13" izz="2.0554E-06" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/LJQy_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/LJQy_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="TBYD2_Joint" type="revolute">
+    <origin xyz="0 0.2359 0" rpy="0 0 0" />
+    <parent link="YBZC_Link" />
+    <child link="TBYD2_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.5707963267948966" upper="1.5707963267948966" effort="100" velocity="1" />
+  </joint>
+
+  <link name="TBYD2_Link">
+    <inertial>
+      <origin xyz="-8.5732E-05 0.033165 0.00029433" rpy="0 0 0" />
+      <mass value="0.074225" />
+      <inertia ixx="2.9223E-05" ixy="-1.6174E-07" ixz="-2.5898E-09" iyy="2.1592E-05" iyz="6.3242E-07" izz="2.8278E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/TBYD2_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/TBYD2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="tbyd3_Joint" type="revolute">
+    <origin xyz="0 0.0375 0.0008" rpy="0 0 0" />
+    <parent link="TBYD2_Link" />
+    <child link="tbyd3_Link" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-0.6981317007977318" upper="0.6981317007977318" effort="100" velocity="1" />
+  </joint>
+
+  <link name="tbyd3_Link">
+    <inertial>
+      <origin xyz="0.00025629 0.054877 0.00067089" rpy="0 0 0" />
+      <mass value="0.085241" />
+      <inertia ixx="3.3081E-05" ixy="4.9192E-07" ixz="1.5823E-07" iyy="2.7726E-05" iyz="8.0468E-07" izz="2.9994E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/tbyd3_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/tbyd3_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="tbyd4_Joint" type="revolute">
+    <origin xyz="0.0008 0.0656 0" rpy="0 0 0" />
+    <parent link="tbyd3_Link" />
+    <child link="tbyd4_Link" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-0.6981317007977318" upper="0.6981317007977318" effort="100" velocity="1" />
+  </joint>
+
+  <link name="tbyd4_Link">
+    <inertial>
+      <origin xyz="-3.9653E-05 0.098934 0.012696" rpy="0 0 0" />
+      <mass value="0.5896" />
+      <inertia ixx="0.0019464" ixy="3.5407E-06" ixz="-1.2114E-07" iyy="0.0016861" iyz="9.751E-05" izz="0.0018719" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/tbyd4_Link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://yudao_urdf/meshes/tbyd4_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+</robot>
