@@ -1,9 +1,10 @@
 <launch>
   <arg
-    name="model" />
+    name="model"
+    default="$(find yudao_urdf)/urdf/yudao.urdf" />
   <param
     name="robot_description"
-    textfile="$(find yudao_urdf)/urdf/yudao.urdf" />
+    textfile="$(arg model)" />
   <node
     name="joint_state_publisher_gui"
     pkg="joint_state_publisher_gui"
@@ -16,5 +17,5 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find yudao_urdf)/urdf.rviz" />
+    args="-d $(find yudao_urdf)/rviz/display.rviz" />
 </launch>
